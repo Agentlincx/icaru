@@ -1277,3 +1277,31 @@ a {
     font-size: 1.1em;
 }
 
+#trtab{
+    padding: .5em 1.5em 3.5em;
+    display: flex;
+    flex-flow: row wrap;
+    grid-gap: 1em;
+}
+
+#trtab p {
+    font-size: 1.3em;
+    font-weight: 900;
+}
+
+#trtab table {
+    border: 1px solid #1d1d1d;
+    border-collapse: collapse;
+}
+
+#trtab tr {
+    border-bottom: 1px solid #1d1d1d;
+}
+
+#trtab tr:nth-child(odd){
+    background-color: var(--col);
+}
+
+#trtab th, #trtab td {
+    padding: 1em;
+}
