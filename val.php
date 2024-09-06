@@ -199,12 +199,8 @@ function maill($to, $num, $name, $add, $day)
         $name .
         '</p>
             <p>Your Icarus shipment with waybill number is awaiting confirmation. The current estimated delivery is </p>
-            <p>To track delivery order <a href="https://icaruslogistics.org/track.php?no="' .
-        $num .
-        '"">Click Here</a></p>
-            <p>To view delivery details <a href="https://icaruslogistics.org/print.php?no="' .
-        $num .
-        '"">Click Here</a></p>
+            <p>To track delivery order <a href="https://icaruslogistics.org/track.php?no="'.$num.'"">Click Here</a></p>
+            <p>To view delivery details <a href="https://icaruslogistics.org/print.php?no="'.$num.'"">Click Here</a></p>
         </div>
         
         <div id="del">
@@ -213,9 +209,7 @@ function maill($to, $num, $name, $add, $day)
             <table border>
                 <tr>
                     <th>Waybill Number</th>
-                    <td>' .
-        $num .
-        '</td>
+                    <td>'.$num.'</td>
                 </tr>
                 <tr>
                     <th>Delivery Address</th>
