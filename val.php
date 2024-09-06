@@ -25,20 +25,19 @@ if (isset($_GET["track"])) {
 
 if (isset($_POST["mail"])) {
     $q = $_POST["mail"];
-    
+
     $a = json_decode($_COOKIE["arr"]);
     $aa = json_decode($_COOKIE["ara"]);
-    
+
     $num = substr($a[0], 0, 2) . (time() + rand()) . substr($a[2], 0, 2);
-    
+
     $name = $aa[0];
-    $add = $a[3].", ".$a[2];
+    $add = $a[3] . ", " . $a[2];
     $day = $a[10];
-    
-    if (maill($q, $num, $name, $add, $day) == 200){
+
+    if (maill($q, $num, $name, $add, $day) == 200) {
         sav($num);
     }
-    
 }
 
 function sav($num)
@@ -47,7 +46,6 @@ function sav($num)
 
     $a = json_decode($_COOKIE["arr"]);
     $aa = json_decode($_COOKIE["ara"]);
-
 
     echo var_dump($aa);
 
@@ -115,43 +113,43 @@ function sav($num)
         "')";
 
     if (mysqli_multi_query($con, $b)) {
-        
         setcookie("arr", "", time() - 3600);
         setcookie("ara", "", time() - 3600);
-        
-        header("location: print.php?no=".$num);
+
+        header("location: print.php?no=" . $num);
     }
 }
 
 //mail function
 function maill($to, $num, $name, $add, $day)
 {
-    $bod = '<!DOCTYPE html>
+    $bod =
+        '<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style type="text/css" media="all">
-            #hd {
-            /*
-                display: grid;
-                grid-template-columns: max-content max-content;
-                */
-                dipslay: flex;
-                flex-flow: row nowrap;
-                align-items: center;
-                font-size: 1.5em;
-                grid-gap: .4em;
-            }
+            
             
             body {
                 border: 1px solid #1d1d1d;
                 padding: 1.5em;
-                font-size: calc(0.6em + 1vmin);
+                font-size: calc(0.5em + 1vmin);
             }
             
             #hd img {
                 width: 50px;
+            }
+            
+            #hd span {
+                font-size: 1.8em;
+                position: relative;
+                transform: translateY(-90%);
+                top: 50%;
+                font-weight: 600;
+                display: inline-block;
+                left: .3em;
             }
             
             .a {
@@ -165,17 +163,8 @@ function maill($to, $num, $name, $add, $day)
                 color: #FF3F3Abb;
             }
             
-            #del>div {
-                display: grid;
-                grid-template-columns: max-content max-content;
-                grid-gap: .4em;
-                background-color: #e2e2e2d3;
-                padding: .8em;
-            }
-            
-            #del>div span:nth-child(odd){
-                text-align: right;
-                font-weight: 600;
+            #del {
+                margin: 3em 0;
             }
             
             #fot {
@@ -187,37 +176,68 @@ function maill($to, $num, $name, $add, $day)
                 color: #00000070;
             }
             
+            table {
+                border-collapse: collapse;
+            }
+            
+            table th, table td {
+                padding: 1em;
+            }
+            
         </style>
     </head>
     <body>
         
         <div id="hd" >
             <img src="https://icaruslogistics.org/img/log.png" alt="" />
-            <div>
+            <span>
                 Icarus Logistics
-            </div>
+            </span>
         </div>
         
         <div id="sh">
             <p class="a">Preparing your Shipment</p>
-            <p>Hello '.$name.'</p>
+            <p>Hello ' .
+        $name .
+        '</p>
             <p>Your Icarus shipment with waybill number is awaiting confirmation. The current estimated delivery is </p>
-            <p>To authorize delivery or other delivery options, <a href="mailto:mail@icaruslogistics.org">Click Here</a></p>
+            <p>To track delivery order <a href="https://icaruslogistics.org/track.php?no="' .
+        $num .
+        '"">Click Here</a></p>
+            <p>To view delivery details <a href="https://icaruslogistics.org/print.php?no="' .
+        $num .
+        '"">Click Here</a></p>
         </div>
         
         <div id="del">
             <p class="a">Shipment Information</p>
-            <div>
-                <span>Waybill Number</span>
-                <span>'.$num.'</span>
-                <span>Delivery Address</span>
-                <span>'.$add.'</span>
-                <span>Estimated Delivery Date</span>
-                <span>'.$day.'</span>
-                <span>Delivery Time</span>
-                <span>By End of Day</span>
-            </div>
+            
+            <table border>
+                <tr>
+                    <th>Waybill Number</th>
+                    <td>' .
+        $num .
+        '</td>
+                </tr>
+                <tr>
+                    <th>Delivery Address</th>
+                    <td>' .
+        $add .
+        '</td>
+                </tr>
+                <tr>
+                    <th>Estimated Delivery Date</th>
+                    <td>' .
+        $day .
+        '</td>
+                </tr>
+                <tr>
+                    <th>Delivery Time</th>
+                    <td>By end of day</td>
+                </tr>
+            </table>
         </div>
+        
         
         <p>Thank you for using Icarus Logistics</p>
         
@@ -237,7 +257,7 @@ function maill($to, $num, $name, $add, $day)
         
     </body>
 </html>';
-    
+
     require "smtp/PHPMailerAutoload.php";
 
     $mail = new PHPMailer();
@@ -335,7 +355,7 @@ if (isset($_GET["desc"])) {
     $c = mysqli_query($con, $a);
 
     if ($c) {
-        if (mysqli_num_rows($c)>0) {
+        if (mysqli_num_rows($c) > 0) {
             $d = mysqli_fetch_assoc($c);
             echo $d["desc"];
         } else {
@@ -346,39 +366,36 @@ if (isset($_GET["desc"])) {
     }
 }
 
-
-if (isset($_POST["descc"])){
+if (isset($_POST["descc"])) {
     $a = $_POST["descc"];
     $aa = $_POST["descd"];
     $b = $_POST["id"];
     $c = $_POST["no"];
-    
+
     $d = "UPDATE track SET track.desc='$a' where id='$b';";
     $d .= "UPDATE quote SET val='$aa' where num='$c'";
-    
-    if (mysqli_multi_query($con, $d)){
-        header("location: dash.php?no=".$c."&sucx");
+
+    if (mysqli_multi_query($con, $d)) {
+        header("location: dash.php?no=" . $c . "&sucx");
     } else {
         echo mysqli_error($con);
     }
 }
 
-
-if (isset($_POST["desca"])){
+if (isset($_POST["desca"])) {
     $a = $_POST["desca"];
     $aa = $_POST["descd"];
     $c = $_POST["no"];
-    
-    $d = "insert into track values('null', '$c', '$a', '".time()."');";
+
+    $d = "insert into track values('null', '$c', '$a', '" . time() . "');";
     $d .= "UPDATE quote SET val='$aa' where num='$c'";
-    
-    if (mysqli_multi_query($con, $d)){
-        header("location: dash.php?no=".$c."&sucx");
+
+    if (mysqli_multi_query($con, $d)) {
+        header("location: dash.php?no=" . $c . "&sucx");
     } else {
         echo mysqli_error($con);
     }
 }
-
 
 /*
 if (isset($_GET["loc"])){
@@ -396,11 +413,10 @@ if (isset($_GET["loc"])){
 }
 */
 
-
-
-function loc($a){
+function loc($a)
+{
     require "db/dbc.php";
-    
+
     $c = "select * from quote where num='$a'";
     $d = mysqli_query($con, $c);
     if ($d) {
@@ -409,11 +425,9 @@ function loc($a){
     } else {
         return "Error";
     }
-    
 }
 
-
-if (isset($_POST["cname"])){
+if (isset($_POST["cname"])) {
     $aa = $_POST["cname"];
     $ab = $_POST["comp"];
     $ac = $_POST["email"];
@@ -421,19 +435,16 @@ if (isset($_POST["cname"])){
     $ae = $_POST["topic"];
     $af = $_POST["msg"];
     $ag = time();
-    
+
     $a = "insert into mail values('null','$aa', '$ab', '$ac', '$ad', '$ae', '$af', '$ag')";
     $b = mysqli_query($con, $a);
-    
-    if ($b){
+
+    if ($b) {
         $v = $_SERVER["HTTP_REFERER"];
-        header("location:".$v."?sucx");
+        header("location:" . $v . "?sucx");
     } else {
-        header("location:".$v);
+        header("location:" . $v);
     }
 }
-
-
-
 ?>
 
