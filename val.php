@@ -47,8 +47,6 @@ function sav($num)
     $a = json_decode($_COOKIE["arr"]);
     $aa = json_decode($_COOKIE["ara"]);
 
-    echo var_dump($aa);
-
     $b =
         "insert into quote values('null', '$num', '" .
         $a[0] .
