@@ -1,10 +1,21 @@
 <?php
 
 
+$host = "sql107.infinityfree.com";
+$user = "if0_37426356";
+$pwd = "ienix190";
+$db = "if0_37426356_user";
+
+
+
+/*
 $host = "localhost";
 $user = "u469204600_ica";
 $pwd = "Icarus@10";
 $db = "u469204600_ica";
+*/
+
+
 
 /*
 $host="localhost";
